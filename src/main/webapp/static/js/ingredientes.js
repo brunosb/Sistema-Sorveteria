@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	
 	aplicarListeners();
+	aplicarListenersBtnSalvar();
 	
 });
 
@@ -10,10 +11,7 @@ var limparModal = function(){
 	$('#categoria').val('');
 }
 
-var aplicarListeners = function(){
-	
-	$('#modal-ingrediente').on('hide.bs.modal',limparModal);
-	
+var aplicarListenersBtnSalvar = function(){
 	$('#btn-salvar').on('click',function(){
 		var url = 'ingredientes';
 		var dadosIngrediente = $('#form-ingrediente').serialize();
@@ -30,6 +28,12 @@ var aplicarListeners = function(){
 				$('#modal-ingrediente').modal('hide');
 			});
 	});
+};
+
+var aplicarListeners = function(){
+	
+	$('#modal-ingrediente').on('hide.bs.modal',limparModal);
+	
 	
 	$('.btn-deletar').on('click',function(){
 		

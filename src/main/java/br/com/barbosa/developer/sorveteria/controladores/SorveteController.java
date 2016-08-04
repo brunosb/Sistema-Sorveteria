@@ -72,6 +72,12 @@ public class SorveteController {
 		}
 	}
 	
+	@RequestMapping(method=RequestMethod.GET, value="/{id}")
+	public ResponseEntity<Sorvete> buscarSorvete(@PathVariable Long id){
+		Sorvete sorvete = sorveteRepositorio.findOne(id);
+		return new ResponseEntity<Sorvete>(sorvete, HttpStatus.OK);
+	}
+	
 	@InitBinder
 	public void initBinder(WebDataBinder webDataBinder){
 		webDataBinder.registerCustomEditor(Ingrediente.class, ingredientePropertyEditor);

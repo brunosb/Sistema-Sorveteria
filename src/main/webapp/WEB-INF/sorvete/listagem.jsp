@@ -12,23 +12,27 @@
 		</style>
 	</head>
 	<body>
-		<c:if test="${not empty msgErro}">
-			<div class="container">
-				<div class="alert alert-danger">${msgErro}</div>
+		<div class="container">
+			<jsp:include page="../menu.jsp"></jsp:include>
+			<c:if test="${not empty msgErro}">
+				<div>
+					<div class="alert alert-danger">${msgErro}</div>
+				</div>
+			</c:if>
+			
+			<c:if test="${not empty msgInfo}">
+				<div>
+					<div class="alert alert-info">${msgInfo}</div>
+				</div>
+			</c:if>
+			
+			<div id="div-table-sorvetes">
+				<jsp:include page="tabela-sorvetes.jsp" />
 			</div>
-		</c:if>
-		
-		<c:if test="${not empty msgInfo}">
-			<div class="container">
-				<div class="alert alert-info">${msgInfo}</div>
-			</div>
-		</c:if>
-		
-		<div class="container" id="div-table-sorvetes">
-			<jsp:include page="tabela-sorvetes.jsp" />
+			
+			<jsp:include page="modal-sorvete.jsp" />
+			
 		</div>
-		
-		<jsp:include page="modal-sorvete.jsp" />
 		
 		<script type="text/javascript" src="${path}/static/js/jquery-3.1.0.min.js"></script>
 		<script type="text/javascript" src="${path}/static/bootstrap/js/bootstrap.min.js"></script>
