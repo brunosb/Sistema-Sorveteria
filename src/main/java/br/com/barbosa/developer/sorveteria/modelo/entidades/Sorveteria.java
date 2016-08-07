@@ -1,22 +1,27 @@
 package br.com.barbosa.developer.sorveteria.modelo.entidades;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-public class Usuario  implements UserDetails{
+public class Sorveteria  implements UserDetails{
 	
 	private static final long serialVersionUID = 1L;
 
@@ -28,8 +33,23 @@ public class Usuario  implements UserDetails{
 	
 	private String senha;
 	
-	@ManyToMany
+	private Calendar dataCadastro;
+	
+	private String nome;
+	
+	private String endereco;
+	
+	@ElementCollection
+	private Set<String> email;
+	
+	@ElementCollection
+	private Set<String> telefone;
+	
+	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Permissao> permissoes;
+	
+	@OneToMany(mappedBy = "dono")
+	private Set<Sorvete> sorvetes;
 
 	public Long getId() {
 		return id;
@@ -41,6 +61,46 @@ public class Usuario  implements UserDetails{
 
 	public String getLogin() {
 		return login;
+	}
+
+	public Calendar getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Calendar dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public void setEndereco(String endereco) {
+		this.endereco = endereco;
+	}
+
+	public Set<String> getEmail() {
+		return email;
+	}
+
+	public void setEmail(Set<String> email) {
+		this.email = email;
+	}
+
+	public Set<String> getTelefone() {
+		return telefone;
+	}
+
+	public void setTelefone(Set<String> telefone) {
+		this.telefone = telefone;
 	}
 
 	public void setLogin(String login) {
@@ -62,6 +122,14 @@ public class Usuario  implements UserDetails{
 	public void setPermissoes(Set<Permissao> permissoes) {
 		this.permissoes = permissoes;
 	}
+	
+	public Set<Sorvete> getSorvetes() {
+		return sorvetes;
+	}
+
+	public void setSorvetes(Set<Sorvete> sorvetes) {
+		this.sorvetes = sorvetes;
+	}
 
 	@Override
 	public int hashCode() {
@@ -79,7 +147,7 @@ public class Usuario  implements UserDetails{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Usuario other = (Usuario) obj;
+		Sorveteria other = (Sorveteria) obj;
 		if (login == null) {
 			if (other.login != null)
 				return false;
@@ -128,6 +196,5 @@ public class Usuario  implements UserDetails{
 	public boolean isEnabled() {
 		return true;
 	}
-
 	
 }

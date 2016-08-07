@@ -16,22 +16,32 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Sorveteria</a>
+      <a class="navbar-brand" href="#"><spring:message code="views.menu.sorveteria" /></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li><a href="sorvetes">Sorvetes</a></li>
-        <li><a href="ingredientes">Ingredientes</a></li>
+        <li><a href="sorveterias">Sorveterias</a></li>
+        
+        <li>
+        	<a href="?lang=pt_BR">
+        		<img alt="Português" src="${path }/static/img/br.png" height="25px">
+        	</a>
+       	</li>
+       	<li>
+        	<a href="?lang=en_US">
+        		<img alt="English" src="${path }/static/img/usa.png" height="25px">
+        	</a>
+       	</li>
       </ul>
       
       <ul class="nav navbar-nav navbar-right">
         <li>
-        	<form action="${path}/sair" method="post">
-				<input type="hidden" name="_csrf" value="${_csrf.token}">
-				<button id="btn-sair" type="submit" class="btn btn-default">Sair da Sorveteria</button>
-			</form>
+        	<a href="#" class="btn btn-default">Me Cadastrar</a>
+       	</li>
+         <li>
+        	<a href="#" class="btn btn-primary">Entrar</a>
        	</li>
         
       </ul>

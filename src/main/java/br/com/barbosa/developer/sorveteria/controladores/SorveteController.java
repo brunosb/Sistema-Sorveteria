@@ -22,6 +22,8 @@ import br.com.barbosa.developer.sorveteria.modelo.entidades.Sorvete;
 import br.com.barbosa.developer.sorveteria.modelo.enumeracoes.CategoriaDeSorvete;
 import br.com.barbosa.developer.sorveteria.modelo.repositories.IngredienteRepositorio;
 import br.com.barbosa.developer.sorveteria.modelo.repositories.SorveteRepositorio;
+import br.com.barbosa.developer.sorveteria.modelo.servicos.ServicoIngrediente;
+import br.com.barbosa.developer.sorveteria.modelo.servicos.ServicoSorvete;
 import br.com.barbosa.developer.sorveteria.propertyeditors.IngredientePropertyEditor;
 
 @Controller
@@ -29,19 +31,19 @@ import br.com.barbosa.developer.sorveteria.propertyeditors.IngredientePropertyEd
 public class SorveteController {
 	
 	@Autowired 
-	private SorveteRepositorio sorveteRepositorio;
+	private ServicoSorvete servicoSorvete;
 	
 	@Autowired
-	private IngredienteRepositorio ingredienteRepositorio;
+	private ServicoIngrediente servicoIngrediente;
 	
 	@Autowired
 	private IngredientePropertyEditor ingredientePropertyEditor;
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String listarSorvetes(Model model){
-		model.addAttribute("sorvetes", sorveteRepositorio.findAll());
+		model.addAttribute("sorvetes", servicoSorvete.listar());
 		model.addAttribute("categorias", CategoriaDeSorvete.values());
-		model.addAttribute("ingredientes", ingredienteRepositorio.findAll());
+		model.addAttribute("ingredientes", servicoIngrediente.listar());
 		return "sorvete/listagem";
 	}
 	
@@ -54,10 +56,10 @@ public class SorveteController {
 		if(bindingResult.hasErrors()){
 			throw new SorveteInvalidoException();
 		}else{
-			sorveteRepositorio.save(sorvete);
+			servicoSorvete.salvar(sorvete);
 		}
 		
-		model.addAttribute("sorvetes", sorveteRepositorio.findAll());		
+		model.addAttribute("sorvetes", servicoSorvete.listar());		
 		
 		return "sorvete/tabela-sorvetes";
 	}
@@ -65,7 +67,7 @@ public class SorveteController {
 	@RequestMapping(method=RequestMethod.DELETE, value="/{sorveteId}")
 	public ResponseEntity<String> deletarSorvete(@PathVariable Long sorveteId){
 		try{
-			sorveteRepositorio.delete(sorveteId);
+			servicoSorvete.remover(sorveteId);
 			return new ResponseEntity<String>(HttpStatus.OK);
 		}catch(Exception e){
 			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -74,7 +76,7 @@ public class SorveteController {
 	
 	@RequestMapping(method=RequestMethod.GET, value="/{id}")
 	public ResponseEntity<Sorvete> buscarSorvete(@PathVariable Long id){
-		Sorvete sorvete = sorveteRepositorio.findOne(id);
+		Sorvete sorvete = servicoSorvete.buscar(id);
 		return new ResponseEntity<Sorvete>(sorvete, HttpStatus.OK);
 	}
 	

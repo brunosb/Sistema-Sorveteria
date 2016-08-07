@@ -6,9 +6,13 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import br.com.barbosa.developer.sorveteria.modelo.enumeracoes.CategoriaDeIngrediente;
 
@@ -18,6 +22,11 @@ public class Ingrediente {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name="DONO")
+	@JsonIgnore
+	private Sorveteria dono;
 	
 	@NotNull
 	@NotEmpty
@@ -44,6 +53,13 @@ public class Ingrediente {
 	}
 	public void setCategoria(CategoriaDeIngrediente categoria) {
 		this.categoria = categoria;
+	}
+	
+	public Sorveteria getDono() {
+		return dono;
+	}
+	public void setDono(Sorveteria dono) {
+		this.dono = dono;
 	}
 	
 	@Override

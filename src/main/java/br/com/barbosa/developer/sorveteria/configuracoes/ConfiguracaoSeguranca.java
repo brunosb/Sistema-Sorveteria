@@ -13,24 +13,24 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-import br.com.barbosa.developer.sorveteria.modelo.repositories.UsuarioRepositorio;
+import br.com.barbosa.developer.sorveteria.modelo.repositories.SorveteriaRepositorio;
 import br.com.barbosa.developer.sorveteria.modelo.servicos.ServicoAutenticacao;
 
 @Configuration
 @EnableWebSecurity
 public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 
-	@Autowired private UsuarioRepositorio usuarioRepositorio;
+	@Autowired private SorveteriaRepositorio usuarioRepositorio;
 	@Autowired private ServicoAutenticacao servicoAutenticacao;
 	
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		/*auth
+		auth
 			.userDetailsService(servicoAutenticacao)
-			.passwordEncoder(encoder());*/
+			.passwordEncoder(encoder());
 		
 		
-		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("SORVETERIA");
+		//auth.inMemoryAuthentication().withUser("admin").password("admin").roles("SORVETERIA");
 	}
 	
 	@Override
@@ -51,12 +51,6 @@ public class ConfiguracaoSeguranca extends WebSecurityConfigurerAdapter {
 			.logout()
 				.logoutUrl("/sair")
 				.logoutSuccessUrl("/login.jsp?saiu=true");
-	}
-	
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		// TODO Auto-generated method stub
-		super.configure(web);
 	}
 	
 	@Bean

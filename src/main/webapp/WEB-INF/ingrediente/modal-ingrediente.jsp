@@ -15,6 +15,7 @@
 				<div class="modal-body">
 				
 					<input type="hidden" id="id" name="id"/>
+					<input id="csrf" name="_csrf" type="hidden" value="${_csrf.token}"> 
 				
 					<label for="nome">Nome:</label>
 					<input id="nome" name="nome" class="form-control">

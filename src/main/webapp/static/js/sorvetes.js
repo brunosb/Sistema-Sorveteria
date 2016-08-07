@@ -40,10 +40,12 @@ var aplicarListeners = function(){
 	$('.btn-deletar').on('click',function(){
 		
 		var id = $(this).parents('tr').data('id');
+		var csrf = $("#csrf").val();
 		
 		$.ajax({
 			url: "sorvetes/"+id,
 			type:'DELETE',
+			headers: {'X-CSRF-TOKEN': csrf},
 			success: function(){
 				$('tr[data-id="'+id+'"]').remove();
 				var sorvetes = parseInt($('#quantidade-sorvetes').text());

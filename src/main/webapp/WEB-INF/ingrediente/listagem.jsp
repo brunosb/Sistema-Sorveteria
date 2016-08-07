@@ -13,7 +13,7 @@
 	</head>
 	<body>
 		<div class="container">
-			<jsp:include page="../menu.jsp"></jsp:include>
+			<jsp:include page="../menu-sorveteria.jsp"></jsp:include>
 			<c:if test="${not empty msgErro}">
 				<div>
 					<div class="alert alert-danger">${msgErro}</div>
